@@ -1,5 +1,15 @@
 import React from 'react';
-import {Container, LeftContainer, Title, Subtitle, RightContainer, Amount, DateTime, BottomContainer, Image} from './styles';
+import {
+  Container,
+  LeftContainer,
+  Title,
+  Subtitle,
+  RightContainer,
+  Amount,
+  DateTime,
+  BottomContainer,
+  Image,
+} from './styles';
 
 interface ExpenseCardProps {
   merchant: string;
@@ -23,7 +33,7 @@ export default function ExpenseCard({
   amount,
   dateTime,
   comment,
-  receipts
+  receipts,
 }: ExpenseCardProps) {
   return (
     <Container>
@@ -32,17 +42,25 @@ export default function ExpenseCard({
         <Subtitle>{`${user.first} ${user.last}`}</Subtitle>
       </LeftContainer>
       <RightContainer>
-        <Amount>
-          {`$${amount.value} ${amount.currency}`} 
-        </Amount>
+        <Amount>{`$${amount.value} ${amount.currency}`}</Amount>
         <BottomContainer>
-          <DateTime>
-            {dateTime}
-          </DateTime>
-          <Image source={comment !== '' ? require('../../assets/images/comment.png') : require('../../assets/images/commentEmpty.png')} />
-          <Image source={receipts !== [] ? require('../../assets/images/receipt.png') : require('../../assets/images/receiptEmpty.png')} />
+          <DateTime>{dateTime}</DateTime>
+          <Image
+            source={
+              comment !== ''
+                ? require('../../assets/images/comment.png')
+                : require('../../assets/images/commentEmpty.png')
+            }
+          />
+          <Image
+            source={
+              receipts !== []
+                ? require('../../assets/images/receipt.png')
+                : require('../../assets/images/receiptEmpty.png')
+            }
+          />
         </BottomContainer>
       </RightContainer>
     </Container>
-  )
+  );
 }
