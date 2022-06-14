@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import axios from 'axios';
 import ExpenseCard from '../../components/ExpenseCard';
@@ -47,8 +47,16 @@ export default function Home({navigation}: any) {
       },
     },
   ]);
-  // const [limitOfExpenses, setLimitOfExpenses] = useState('25');
-  // const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSeachText] = useState('');
+  const [filterOption, setFilterOption] = useState();
+
+  const filteredExpenses = useMemo(
+    () =>
+      expenses.filter(expense =>
+        expense.merchant.toLowerCase().includes(searchText.toLowerCase()),
+      ),
+    [expenses, searchText],
+  );
 
   const url = 'http://192.168.100.102:3000/expenses';
 
@@ -62,6 +70,7 @@ export default function Home({navigation}: any) {
   }, [url]);
 
   function handleNavigation(
+    id: string,
     merchant: string,
     user: {
       email: string;
@@ -77,6 +86,7 @@ export default function Home({navigation}: any) {
     receipts: any[],
   ) {
     navigation.navigate('ExpenseDetails', {
+      id,
       merchant,
       user,
       amount,
@@ -86,16 +96,23 @@ export default function Home({navigation}: any) {
     });
   }
 
+  console.log(filterOption);
+
   return (
     <Container>
-      <SearchBar />
+      <SearchBar
+        searchText={searchText}
+        setSearchText={setSeachText}
+        setFilterOption={setFilterOption}
+      />
       <FlatList
-        data={expenses}
+        data={filteredExpenses}
         keyExtractor={expense => expense.id}
         renderItem={({item}) => (
           <Pressable
             onPress={() =>
               handleNavigation(
+                item.id,
                 item.merchant,
                 item.user,
                 item.amount,

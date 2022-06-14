@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 64px;
   padding: 12px 24px;
   border-bottom-color: #9a9ca0;
   border-bottom-width: 1px;
@@ -22,7 +21,14 @@ export const Subtitle = styled.Text`
   font-size: 12px;
   line-height: 16px;
   color: rgba(0, 0, 0, 0.5);
-  margin-top: 6px;
+  margin-top: 8px;
+`;
+
+export const DateTime = styled.Text`
+  font-size: 8px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 8px;
 `;
 
 export const RightContainer = styled.View`
@@ -35,18 +41,12 @@ export const Amount = styled.Text`
   color: #000;
 `;
 
-export const DateTime = styled.Text`
-  font-size: 8px;
-  line-height: 16px;
-  color: rgba(0, 0, 0, 0.5);
-`;
-
 export const BottomContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 6px;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 export const Image = styled.Image`
   margin-left: 8px;
+  margin-top: 8px;
 `;

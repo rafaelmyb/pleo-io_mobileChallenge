@@ -40,11 +40,11 @@ export default function ExpenseCard({
       <LeftContainer>
         <Title>{merchant}</Title>
         <Subtitle>{`${user.first} ${user.last}`}</Subtitle>
+        <DateTime>{dateTime}</DateTime>
       </LeftContainer>
       <RightContainer>
         <Amount>{`$${amount.value} ${amount.currency}`}</Amount>
         <BottomContainer>
-          <DateTime>{dateTime}</DateTime>
           <Image
             source={
               comment !== ''

@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  margin: 36px 24px 28px 24px;
+  margin-bottom: 16px;
+`;
+
+export const SearchContainer = styled.View`
+  margin: 36px 24px 16px 24px;
   padding: 0 24px;
   flex-direction: row;
   align-items: center;
@@ -16,7 +20,7 @@ export const Input = styled.TextInput`
   color: #000;
   height: 42px;
   margin-left: 6px;
-  margin-right: auto;
+  flex: 1;
 
   /* &::placeholder {
     color: #000;
@@ -25,3 +29,20 @@ export const Input = styled.TextInput`
 `;
 
 export const Button = styled.TouchableOpacity``;
+
+export const FilterContainer = styled.View`
+  padding: 0 24px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CheckboxContainer = styled.View`
+  flex-direction: row;
+`;
+
+export const Checkbox = styled.Text``;
+
+export const CheckboxText = styled.Text`
+  margin-left: 4px;
+`;
