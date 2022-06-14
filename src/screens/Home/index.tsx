@@ -48,17 +48,28 @@ export default function Home({navigation}: any) {
     },
   ]);
   const [searchText, setSeachText] = useState('');
-  const [filterOption, setFilterOption] = useState();
+  const [, setFilterOption] = useState();
 
   const filteredExpenses = useMemo(
     () =>
-      expenses.filter(expense =>
-        expense.merchant.toLowerCase().includes(searchText.toLowerCase()),
+      expenses.filter(
+        expense =>
+          expense.merchant.toLowerCase().includes(searchText.toLowerCase()) ||
+          expense.user.first.toLowerCase().includes(searchText.toLowerCase()) ||
+          expense.user.last.toLowerCase().includes(searchText.toLowerCase()) ||
+          expense.user.email.toLowerCase().includes(searchText.toLowerCase()) ||
+          expense.amount.value
+            .toLowerCase()
+            .includes(searchText.toLowerCase()) ||
+          expense.amount.currency
+            .toLowerCase()
+            .includes(searchText.toLowerCase()) ||
+          expense.date.toLowerCase().includes(searchText.toLowerCase()),
       ),
     [expenses, searchText],
   );
 
-  const url = 'http://192.168.100.102:3000/expenses';
+  const url = 'http://192.168.100.102:3000/expenses?limit=168';
 
   useEffect(() => {
     async function fetchData() {
@@ -95,8 +106,6 @@ export default function Home({navigation}: any) {
       receipts,
     });
   }
-
-  console.log(filterOption);
 
   return (
     <Container>
