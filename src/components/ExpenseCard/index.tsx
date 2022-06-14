@@ -1,20 +1,47 @@
 import React from 'react';
-import {Container, LeftContainer, Title, Subtitle, RightContainer, Amount, DateTime} from './styles';
+import {Container, LeftContainer, Title, Subtitle, RightContainer, Amount, DateTime, BottomContainer, Image} from './styles';
 
-export default function ExpenseCard() {
+interface ExpenseCardProps {
+  merchant: string;
+  user: {
+    first: string;
+    last: string;
+    email: string;
+  };
+  amount: {
+    value: string;
+    currency: string;
+  };
+  dateTime: string;
+  comment: string;
+  receipts: any[];
+}
+
+export default function ExpenseCard({
+  merchant,
+  user,
+  amount,
+  dateTime,
+  comment,
+  receipts
+}: ExpenseCardProps) {
   return (
     <Container>
       <LeftContainer>
-        <Title>QUONK</Title>
-        <Subtitle>Atkins Blackburn</Subtitle>
+        <Title>{merchant}</Title>
+        <Subtitle>{`${user.first} ${user.last}`}</Subtitle>
       </LeftContainer>
       <RightContainer>
         <Amount>
-          $2149.29 GBP
+          {`$${amount.value} ${amount.currency}`} 
         </Amount>
-        <DateTime>
-          21 Jun, 2017 | 08:45
-        </DateTime>
+        <BottomContainer>
+          <DateTime>
+            {dateTime}
+          </DateTime>
+          <Image source={comment !== '' ? require('../../assets/images/comment.png') : require('../../assets/images/commentEmpty.png')} />
+          <Image source={receipts !== [] ? require('../../assets/images/receipt.png') : require('../../assets/images/receiptEmpty.png')} />
+        </BottomContainer>
       </RightContainer>
     </Container>
   )

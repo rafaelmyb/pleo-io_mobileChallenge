@@ -62,37 +62,23 @@ export default function Home() {
     fetchData();
   }, [url]);
 
-  // const loadExpenses = useCallback(async () => {
-  //   try {
-  //     setIsLoading(true);
-
-  //     const expensesList = await ExpensesService.listExpenses('25');
-
-  //     console.log('Chegamos aqui: ', expensesList)
-
-  //     setExpenses(expensesList);
-  //   } catch (error) {
-  //     console.log('Chegamos aqui: ', error)
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, [limitOfExpenses]);
-
   return (
-      <Container>
-        {/* {expenses.map((expense) => (
-          <Text key={expense.id}>{expense.id}</Text>
-        ))} */}
-          <FlatList
-          data={expenses}
-          keyExtractor={(expense) => expense.id}
-          renderItem={({item}) => (
-            <Text>{item.merchant}</Text>
-          )} />
-      </Container>
-      // <Container>
-      //   <SearchBar />
-      //   <ExpenseCard />
-      // </Container>
+    <Container>
+      <SearchBar />
+      <FlatList
+        data={expenses}
+        keyExtractor={(expense) => expense.id}
+        renderItem={({item}) => (
+          <ExpenseCard
+            merchant={item.merchant}
+            user={item.user}
+            amount={item.amount}
+            dateTime={item.date}
+            comment={item.comment}
+            receipts={item.receipts}
+          />
+        )}
+      />
+    </Container>
   )
 }
