@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+
 import {
   Container,
   ContainerText,
@@ -13,19 +15,27 @@ import {
   Image,
 } from './styles';
 
-interface CommentResponse {
-  comment: string;
-}
-
-export default function ExpenseDetails({route}: any) {
+export default function ExpenseDetails({navigation, route}: any) {
   const {id, merchant, user, amount, date, comment, receipts} = route.params;
   const [showInput, setShowInput] = useState(false);
   const [valueInput, setValueInput] = useState('');
   const [posted, setPosted] = useState(false);
   const [commentReturned, setCommentReturned] = useState('');
+  const [captureCamera, setCaptureCamera] = useState('');
+  const [picture, setPicture] = useState('');
 
   function handleActiveInput() {
     setShowInput(true);
+  }
+
+  function handleOpenCamera(
+    idExpense: string,
+    setCapture: React.Dispatch<React.SetStateAction<string>>,
+  ) {
+    navigation.navigate('Camera', {
+      idExpense,
+      setCapture,
+    });
   }
 
   async function handleSubmitInput(value: string) {
@@ -43,11 +53,23 @@ export default function ExpenseDetails({route}: any) {
         .get(`http://192.168.100.102:3000/expenses/${id}`)
         .then(response => {
           setCommentReturned(response.data.comment);
-          console.log(response.data.comment);
         });
     }
     fetchData();
   }, [posted, id]);
+
+  useEffect(() => {
+    async function fetchReceipts() {
+      await axios
+        .get(`http://192.168.100.102:3000/expenses/${id}`)
+        .then(response => {
+          setPicture(response.data.receipts);
+        });
+    }
+    fetchReceipts();
+  }, [captureCamera]);
+
+  console.log(picture);
 
   return (
     <Container>
@@ -97,7 +119,13 @@ export default function ExpenseDetails({route}: any) {
       ) : null}
       <ContainerText>
         <Title>RECEIPTS:</Title>
-        <Text>{receipts}</Text>
+        {receipts.length === 0 ? (
+          <ButtonComment onPress={() => handleOpenCamera(id, setCaptureCamera)}>
+            <Text>+ Add a receipt</Text>
+          </ButtonComment>
+        ) : (
+          <Text>{picture}</Text>
+        )}
       </ContainerText>
     </Container>
   );

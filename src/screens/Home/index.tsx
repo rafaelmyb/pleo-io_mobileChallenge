@@ -4,6 +4,7 @@ import axios from 'axios';
 import ExpenseCard from '../../components/ExpenseCard';
 import SearchBar from '../../components/SearchBar';
 import {Container} from './styles';
+import moment from 'moment';
 
 interface Expense {
   id: string;
@@ -94,7 +95,7 @@ export default function Home({navigation}: any) {
     },
     date: string,
     comment: string,
-    receipts: any[],
+    receipts: string[],
   ) {
     navigation.navigate('ExpenseDetails', {
       id,
@@ -125,7 +126,7 @@ export default function Home({navigation}: any) {
                 item.merchant,
                 item.user,
                 item.amount,
-                item.date,
+                moment(item.date).format('DD MMM, YYYY | hh:mm a'),
                 item.comment,
                 item.receipts,
               )
@@ -134,7 +135,7 @@ export default function Home({navigation}: any) {
               merchant={item.merchant}
               user={item.user}
               amount={item.amount}
-              dateTime={item.date}
+              dateTime={moment(item.date).format('DD MMM, YYYY | hh:mm a')}
               comment={item.comment}
               receipts={item.receipts}
             />

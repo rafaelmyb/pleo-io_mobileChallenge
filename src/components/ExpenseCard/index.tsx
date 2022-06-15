@@ -54,9 +54,9 @@ export default function ExpenseCard({
           />
           <Image
             source={
-              receipts !== []
-                ? require('../../assets/images/receipt.png')
-                : require('../../assets/images/receiptEmpty.png')
+              receipts === []
+                ? require('../../assets/images/receiptEmpty.png')
+                : require('../../assets/images/receipt.png')
             }
           />
         </BottomContainer>

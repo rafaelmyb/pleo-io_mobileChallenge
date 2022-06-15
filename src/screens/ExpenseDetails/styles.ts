@@ -10,7 +10,7 @@ export const Container = styled.ScrollView`
 export const ContainerText = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: 18px 0;
 `;
 
@@ -25,6 +25,8 @@ export const Text = styled.Text`
   font-size: 16px;
   font-weight: 400;
   color: #000;
+  flex: 1;
+  text-align: right;
 `;
 
 export const ButtonComment = styled.TouchableOpacity`
